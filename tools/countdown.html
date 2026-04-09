@@ -30,9 +30,9 @@
 
     .countdown {     
      border-radius: 1rem;
-     background-color: rgba(0,0,0,.8);
+     background-color: rgba(255,0,0,.80);
         
-      width: 90vw;
+      width: 92vw;
       text-align: center;
       text-shadow: 0 6px 24px var(--shadow);
       margin-top: 22rem;
@@ -89,7 +89,7 @@
         now.getMonth(),
         now.getDate(),
         23,
-        30,
+        40,
         0,
         0
       );
@@ -127,7 +127,7 @@
     const hh = String(d.getHours()).padStart(2, '0');
     const mm = String(d.getMinutes()).padStart(2, '0');    
     let text = document.getElementById('targe-time')
-    text.innerText = `${hh}:${mm}`
+    text.innerText = `LIVE ÀS ${hh}:${mm}`
   </script>
 </body>
 </html>
