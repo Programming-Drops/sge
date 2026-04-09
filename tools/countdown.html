@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Countdown Live</title>
+  <style>
+    :root {
+      --text: #ffffff;
+      --shadow: rgba(0, 0, 0, 0.45);
+      --overlay: rgba(0, 0, 0, 0.32);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      font-family: "Arial Black", Arial, sans-serif;
+      color: var(--text);
+      background:
+        linear-gradient(var(--overlay), var(--overlay)),
+        url("./capa-live-02.png") center center / cover no-repeat;
+      overflow: hidden;
+    }
+
+    .countdown {     
+     border-radius: 1rem;
+     background-color: rgba(0,0,0,.8);
+        
+      width: 90vw;
+      text-align: center;
+      text-shadow: 0 6px 24px var(--shadow);
+      margin-top: 22rem;
+    }
+
+    .label {
+      margin: 0 0 18px;
+      font-size: clamp(rem, 2vw, 1.35rem);
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+    }
+
+    .timer {
+      margin: 0;
+      font-size: clamp(3.8rem, 13vw, 8rem);
+      line-height: 0.95;
+    }
+
+    .target-time {
+      margin-top: 18px;
+      font-size: clamp(1rem, 2.2vw, 1.5rem);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 640px) {
+      .countdown {
+        padding: 24px 16px;
+      }
+
+      .label {
+        letter-spacing: 0.22em;
+      }
+
+      .target-time {
+        letter-spacing: 0.1em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="countdown">    
+    <h1 class="timer" id="timer">00:00:00</h1>
+    <div id="targe-time" class="target-time">Hoje às ??:00</div>
+  </main>
+
+  <script>
+    const timer = document.getElementById("timer");
+
+    function getTargetDate() {
+      const now = new Date();
+      return new Date(
+        now.getFullYear(),
+        now.getMonth(),
+        now.getDate(),
+        23,
+        30,
+        0,
+        0
+      );
+    }
+
+    function formatTime(value) {
+      return String(value).padStart(2, "0");
+    }
+
+    function updateCountdown() {
+      const now = new Date();
+      const target = getTargetDate();
+      const diff = target - now;
+
+      if (diff <= 0) {
+        timer.textContent = "AO VIVO";
+        return;
+      }
+
+      const hours = Math.floor(diff / 3600000);
+      const minutes = Math.floor((diff % 3600000) / 60000);
+      const seconds = Math.floor((diff % 60000) / 1000);
+
+      timer.textContent = [
+        formatTime(hours),
+        formatTime(minutes),
+        formatTime(seconds)
+      ].join(":");
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    const d = getTargetDate()
+    const hh = String(d.getHours()).padStart(2, '0');
+    const mm = String(d.getMinutes()).padStart(2, '0');    
+    let text = document.getElementById('targe-time')
+    text.innerText = `${hh}:${mm}`
+  </script>
+</body>
+</html>
