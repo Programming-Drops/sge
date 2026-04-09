@@ -89,3 +89,24 @@ create table veiculos (
     foreign key(id_cliente) references clientes(id),
     foreign key(id_contrato) references contratos(id)
 );
+
+
+
+/*  
+   MOVIMENTAÇÕES
+   ------
+   controla as movimentações de entrada e saída dos veículos
+   tipo (E = entrada, S = saída)
+*/
+create table movimentacoes (
+    id              integer primary key autoincrement,
+    data            text,  /* ISO8601 strings ("YYYY-MM-DD HH:MM:SS.SSS") */
+    tipo            text(1) not null check( tipo in ('E', 'S') ),
+    id_veiculo      int not null,  
+    id_funcionario  int not null,  
+
+    foreign key(id_veiculo) references veiculos(id),
+    foreign key(id_funcionario) references funcionarios(id)
+);
+
+
