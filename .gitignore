@@ -86,6 +86,6 @@ modules/
 # other
 
 
-src/backup/*
+src/backup
 src/lib
 src/lib/*
