@@ -13,9 +13,24 @@ const
 
 type
   TExecuteSciptResult = (
-    esrScriptNotFound
+    esrSuccess,
+    esrScriptNotFound,
+    esrScriptError
   );
 
+  PScriptError = ^TScriptError;
+  TScriptError = record
+    Command : string;
+    Message: string;
+  end;
+
+  (*
+  PScritpErrorReport = ^TScritpErrorReport;
+  TScritpErrorReport = record
+    ErrorCount: integer;
+    ErrorList : PScriptError;
+  end;
+  *)
 
 
 function GetConnection(
@@ -28,9 +43,15 @@ function CrateNewDataBase(const ADatabaseName: string) : TSQLite3Connection;
 function GetQuery(const ASql: string) : TSQLQuery;
 
 function ParseScript(const AScriptFileName: string): TStringList;
+
+(*
+ Executes a script file and returns the details on AError pointer.
+ Function caller is responsible for free its mememory
+*)
 function ExecuteScipt(
   const AScriptFileName: string;
-  const AConnection: TSQLite3Connection) : TExecuteSciptResult;
+  const AConnection: TSQLite3Connection;
+  out AError: TScriptError) : TExecuteSciptResult;
 
 
 
@@ -72,9 +93,11 @@ end;
 
 function ExecuteScipt(
   const AScriptFileName: string;
-  const AConnection: TSQLite3Connection) : TExecuteSciptResult;
+  const AConnection: TSQLite3Connection;
+  out AError: TScriptError): TExecuteSciptResult;
 var
   i: integer;
+  command: string;
   commandList: TStringList;
   transaction: TSQLTransaction;
 begin
@@ -91,11 +114,18 @@ begin
   try
     for i:= 0 to commandList.Count - 1 do
     begin
-      AConnection.ExecuteDirect(commandList[i]);
+      command:= commandList[i];
+      AConnection.ExecuteDirect(command);
     end;
     transaction.Commit;
-  except
-    transaction.Rollback;
+    Result := esrSuccess;
+  except on e: Exception do
+    begin
+      transaction.Rollback;
+      Result:= esrScriptError;
+      AError.Command:= command;
+      AError.Message:= e.Message ;
+    end;
   end;
 end;
 

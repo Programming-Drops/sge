@@ -18,11 +18,17 @@ var
  id : integer;
  conexao : TSQLite3Connection;
  cargo   : PCargo;
-
+ error   : TScriptError;
 begin
 
   conexao := CrateNewDataBase('teste.db');
-  ExecuteScipt('..\db\estrutura incial.sql', conexao);
+  if (ExecuteScipt('..\db\estrutura incial.sql', conexao, error) = esrScriptError) then
+  begin
+    WriteLn('Erro ao exectuar o script');
+    WriteLn('Comando:', error.Command);
+    WriteLn('Erro   :', error.Message);
+
+  end;
 
 end.
 
