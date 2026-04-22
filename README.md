@@ -1,2 +1,9 @@
-# sge
-Sistema de gestão de estacionamentos
+# SGE
+Sistema de Gestão de Estacionamentos
+
+
+## Directory Structure
+
+|FOLDER| DESCRIPTION
+|--|--|
+|`\db` | database creation scripts |

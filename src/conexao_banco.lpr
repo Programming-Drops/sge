@@ -20,28 +20,9 @@ var
  cargo   : PCargo;
 
 begin
-  conexao := GetConnection;
-  try
-    if (conexao.Connected) then
-    begin
-      WriteLn('Banco conectado!');
 
-      cargo := CargoInsert('Cargo de teste');
-      id := cargo^.Id;
-      CargoDelete(id);
-      cargo := CargoLoadById(id);
+  conexao := CrateNewDataBase('teste.db');
+  ExecuteScipt('..\db\estrutura incial.sql', conexao);
 
-      if (cargo = nil) then
-        WriteLn('A função funcionou')
-      else
-        WriteLn('Houve algum erro');
-
-    end;
-    conexao.Close();
-    conexao.Free;
-  except
-    on e: Exception do
-       WriteLn('Erro ao conectar no banco: ' + e.Message);
-    end;
 end.
 
