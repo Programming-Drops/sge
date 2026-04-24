@@ -16,6 +16,7 @@ uses
 
 var
  id : integer;
+ idFuncionario: Int64;
  conexao : TSQLite3Connection;
  cargo   : PCargo;
  error   : TScriptError;
@@ -34,8 +35,12 @@ begin
   funcionario:= FuncionarioInsert('Fabiano Xavier', 1, NULL_ID, true);
   if (funcionario = nil) then
      WriteLn('Erro ao inserir o funcionario')
-  else
-     WriteLn('Funcionario ', funcionario^.IdUsuario , ' inserido sem erros');
+  else begin
+     idFuncionario := funcionario^.Id;
+     WriteLn('Funcionario ', idFuncionario , ' inserido sem erros');
+     Freemem(funcionario);
+     funcionario := FuncionarioLoadById(idFuncionario);
+  end;
 
 
 end.

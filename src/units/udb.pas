@@ -32,7 +32,7 @@ function GetConnection(
 (* Cria um banco de dados novo e retorna um objeto de conexão para ele *)
 function CrateNewDataBase(const ADatabaseName: string) : TSQLite3Connection;
 
-function GetQuery(const ASql: string) : TSQLQuery;
+function GetQuery(const ASql: string; AAutoOpen: boolean = false) : TSQLQuery;
 
 function ParseScript(const AScriptFileName: string): TStringList;
 
@@ -72,7 +72,7 @@ begin
   Result := lConnection;
 end;
 
-function GetQuery(const ASql: string) : TSQLQuery;
+function GetQuery(const ASql: string; AAutoOpen: boolean) : TSQLQuery;
 var
   cnn : TSQLite3Connection;
 begin
@@ -80,6 +80,8 @@ begin
   result := TSQLQuery.Create(cnn);
   result.SQLConnection := cnn;
   result.SQL.Add(ASql);
+  if AAutoOpen then
+    result.Open;
 end;
 
 function ExecuteScipt(
