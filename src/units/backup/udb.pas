@@ -90,7 +90,6 @@ begin
   result.SQL.Add(ASql);
 end;
 
-
 function ExecuteScipt(
   const AScriptFileName: string;
   const AConnection: TSQLite3Connection;
@@ -123,8 +122,8 @@ begin
     begin
       transaction.Rollback;
       Result:= esrScriptError;
-      AError^.Command:= command;
-      AError^.Message:= e.Message ;
+      AError.Command:= command;
+      AError.Message:= e.Message ;
     end;
   end;
 end;
@@ -150,8 +149,6 @@ begin
   end;
   Close(scriptFile);
 end;
-
-
 
 function CrateNewDataBase(const ADatabaseName: string) : TSQLite3Connection;
 begin

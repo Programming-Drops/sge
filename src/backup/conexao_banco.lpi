@@ -38,6 +38,16 @@
         <Filename Value="units\udb.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit>
+      <Unit>
+        <Filename Value="units\ufuncionario.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="uFuncionario"/>
+      </Unit>
+      <Unit>
+        <Filename Value="units\uconstantes.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="uConstantes"/>
+      </Unit>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

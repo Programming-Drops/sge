@@ -24,14 +24,6 @@ type
     Message: string;
   end;
 
-  (*
-  PScritpErrorReport = ^TScritpErrorReport;
-  TScritpErrorReport = record
-    ErrorCount: integer;
-    ErrorList : PScriptError;
-  end;
-  *)
-
 
 function GetConnection(
   const ADatabaseName: string = DEFAULT_DB_NAME;
@@ -89,7 +81,6 @@ begin
   result.SQLConnection := cnn;
   result.SQL.Add(ASql);
 end;
-
 
 function ExecuteScipt(
   const AScriptFileName: string;
@@ -150,8 +141,6 @@ begin
   end;
   Close(scriptFile);
 end;
-
-
 
 function CrateNewDataBase(const ADatabaseName: string) : TSQLite3Connection;
 begin

@@ -14,6 +14,8 @@ type
     Nome : string;
   end;
 
+
+
   function CargoInsert(const ANome: string): PCargo;
   function CargoLoadById(const AId: integer): PCargo;
   function CargoUpdate(const AId: integer; const ANome: string) : boolean;
@@ -24,27 +26,24 @@ type
 implementation
 
 uses
-  sqldb, sysutils, udb;
+  sqldb, sysutils, udb, uConstantes;
 
 function CargoInsert(const ANome: string): PCargo;
 const
    SQL_INSERT = 'insert into cargos(nome) values (:nome)';
-   SQL_SELECT = 'SELECT last_insert_rowid() as id';
 var
+   newId :Int64;
    query: TSQLQuery;
 begin
    Result := nil;
    try
       query:= GetQuery(SQL_INSERT);
-      query.SQL.Add(SQL_INSERT);
       query.Params.ParamByName('nome').AsString:= ANome;
       query.ExecSQL;
       query.SQLConnection.Transaction.Commit;
 
-      query.SQL.Clear;
-      query.SQL.Add(SQL_SELECT);
-      query.Open;
-      if not(query.EOF) then
+      newId := TSQLite3Connection(query.SQLConnection).GetInsertID;
+      if newId <> ID then
       begin
          Result := GetMem(SizeOf(TCargo));
          Result^.Id   := query.FieldByName('id').AsInteger;
