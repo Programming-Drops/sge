@@ -55,6 +55,26 @@ uses
 var
   lConnection: TSQLite3Connection;
 
+{ helper functions... }
+procedure DeleteDatabaseFile(const ADatabaseName: string);
+var
+  ErrorCode: Integer;
+begin
+  if FileExists(ADatabaseName) then
+  begin
+    if not DeleteFile(ADatabaseName) then
+    begin
+      ErrorCode := GetLastOSError;
+
+      raise Exception.CreateFmt(
+        'Não foi possível apagar o arquivo "%s". Erro %d: %s',
+        [ADatabaseName, ErrorCode, SysErrorMessage(ErrorCode)]
+      );
+    end;
+  end;
+end;
+
+{implementations}
 
 function GetConnection(
   const ADatabaseName: string;
@@ -147,7 +167,7 @@ end;
 function CrateNewDataBase(const ADatabaseName: string) : TSQLite3Connection;
 begin
   if FileExists(ADatabaseName) then
-     DeleteFile(ADatabaseName);
+     DeleteDatabaseFile(ADatabaseName);
 
   Result := TSQLite3Connection.Create(nil);
   Result.DatabaseName:= ADatabaseName;

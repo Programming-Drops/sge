@@ -1,6 +1,7 @@
 program conexao_banco;
 
 {$mode objfpc}{$H+}
+{$codepage utf8}
 
 uses
   {$IFDEF UNIX}
@@ -32,10 +33,10 @@ begin
 
   funcionario:= FuncionarioInsert('Fabiano Xavier', 1, NULL_ID, true);
   if (funcionario = nil) then
-     WriteLn('Erro ao inserir o funcionario')
+     WriteLn('Erro ao inserir o funcionário')
   else begin
      idFuncionario := funcionario^.Id;
-     WriteLn('Funcionario ', idFuncionario , ' inserido sem erros');
+     WriteLn('Funcionário ', idFuncionario , ' inserido sem erros');
      Freemem(funcionario);
      funcionario := FuncionarioLoadById(idFuncionario);
      if (funcionario = nil) then

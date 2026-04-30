@@ -76,6 +76,8 @@
 __history/
 __recovery/
 *.~*
+backup/
+**/backup/
 
 # Castalia statistics file (since XE7 Castalia is distributed with Delphi)
 *.stat
@@ -88,7 +90,10 @@ modules/
 # other
 
 
-src/backup
-src/backp
+bin/win64-x86_64/
+database.sqlite3
+teste.db
+src/backup/
+src/backp/
 src/lib
 src/lib/*

@@ -8,8 +8,8 @@
       <Unit>
         <Filename Value="conexao_banco.lpr"/>
         <IsPartOfProject Value="True"/>
-        <TopLine Value="14"/>
-        <CursorPos Y="25"/>
+        <IsVisibleTab Value="True"/>
+        <CursorPos X="49" Y="22"/>
         <UsageCount Value="37"/>
         <Loaded Value="True"/>
       </Unit>
@@ -17,19 +17,18 @@
         <Filename Value="units\ucargos.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="uCargos"/>
-        <EditorIndex Value="2"/>
-        <TopLine Value="7"/>
-        <CursorPos X="19" Y="22"/>
+        <EditorIndex Value="4"/>
+        <TopLine Value="97"/>
+        <CursorPos X="3" Y="106"/>
         <UsageCount Value="35"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="units\udb.pas"/>
         <IsPartOfProject Value="True"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
-        <TopLine Value="85"/>
-        <CursorPos X="40" Y="94"/>
+        <TopLine Value="153"/>
+        <CursorPos Y="174"/>
         <UsageCount Value="34"/>
         <Loaded Value="True"/>
       </Unit>
@@ -37,7 +36,7 @@
         <Filename Value="units\ufuncionario.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="uFuncionario"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="5"/>
         <TopLine Value="16"/>
         <CursorPos X="12" Y="30"/>
         <UsageCount Value="27"/>
@@ -154,127 +153,151 @@
         <CursorPos X="55" Y="1186"/>
         <UsageCount Value="10"/>
       </Unit>
+      <Unit>
+        <Filename Value="D:\lazarus\fpc\3.2.2\source\rtl\objpas\sysutils\filutilh.inc"/>
+        <EditorIndex Value="2"/>
+        <TopLine Value="168"/>
+        <CursorPos X="10" Y="183"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="D:\lazarus\fpc\3.2.2\source\rtl\win\sysutils.pp"/>
+        <UnitName Value="SysUtils"/>
+        <EditorIndex Value="3"/>
+        <TopLine Value="701"/>
+        <CursorPos X="20" Y="703"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="D:\lazarus\fpc\3.2.2\source\rtl\win\wininc\unifun.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="106"/>
+        <CursorPos X="48" Y="116"/>
+        <UsageCount Value="10"/>
+      </Unit>
     </Units>
     <JumpHistory HistoryIndex="29">
       <Position>
-        <Filename Value="units\udb.pas"/>
-        <Caret Line="103" TopLine="81"/>
-      </Position>
-      <Position>
-        <Filename Value="units\udb.pas"/>
-        <Caret Line="104" TopLine="81"/>
-      </Position>
-      <Position>
-        <Filename Value="units\udb.pas"/>
-        <Caret Line="105" TopLine="81"/>
-      </Position>
-      <Position>
-        <Filename Value="units\udb.pas"/>
-        <Caret Line="106" TopLine="81"/>
-      </Position>
-      <Position>
-        <Filename Value="units\udb.pas"/>
-        <Caret Line="107" TopLine="89"/>
-      </Position>
-      <Position>
-        <Filename Value="units\udb.pas"/>
-        <Caret Line="108" TopLine="89"/>
-      </Position>
-      <Position>
-        <Filename Value="units\udb.pas"/>
-        <Caret Line="110" TopLine="89"/>
-      </Position>
-      <Position>
         <Filename Value="conexao_banco.lpr"/>
-        <Caret Line="25" TopLine="14"/>
+        <Caret Line="24" TopLine="14"/>
+      </Position>
+      <Position>
+        <Filename Value="units\udb.pas"/>
+        <Caret Line="148" TopLine="132"/>
+      </Position>
+      <Position>
+        <Filename Value="units\udb.pas"/>
+        <Caret Line="149" TopLine="132"/>
+      </Position>
+      <Position>
+        <Filename Value="units\udb.pas"/>
+        <Caret Line="150" TopLine="132"/>
+      </Position>
+      <Position>
+        <Filename Value="units\udb.pas"/>
+        <Caret Line="170" Column="40" TopLine="148"/>
       </Position>
       <Position>
         <Filename Value="conexao_banco.lpr"/>
         <Caret Line="24" TopLine="14"/>
       </Position>
       <Position>
-        <Filename Value="conexao_banco.lpr"/>
-        <Caret Line="25" TopLine="14"/>
+        <Filename Value="units\udb.pas"/>
+        <Caret Line="168" TopLine="148"/>
       </Position>
       <Position>
         <Filename Value="units\udb.pas"/>
-        <Caret Line="96" TopLine="89"/>
+        <Caret Line="169" TopLine="148"/>
       </Position>
       <Position>
         <Filename Value="units\udb.pas"/>
-        <Caret Line="99" TopLine="89"/>
+        <Caret Line="170" TopLine="148"/>
       </Position>
       <Position>
         <Filename Value="units\udb.pas"/>
-        <Caret Line="102" TopLine="89"/>
+        <Caret Line="62" TopLine="47"/>
       </Position>
       <Position>
         <Filename Value="units\udb.pas"/>
-        <Caret Line="103" TopLine="89"/>
+        <Caret Line="63" TopLine="47"/>
       </Position>
       <Position>
         <Filename Value="units\udb.pas"/>
-        <Caret Line="104" TopLine="89"/>
+        <Caret Line="65" TopLine="47"/>
       </Position>
       <Position>
         <Filename Value="units\udb.pas"/>
-        <Caret Line="105" TopLine="89"/>
+        <Caret Line="67" TopLine="47"/>
       </Position>
       <Position>
         <Filename Value="units\udb.pas"/>
-        <Caret Line="106" TopLine="89"/>
-      </Position>
-      <Position>
-        <Filename Value="conexao_banco.lpr"/>
-        <Caret Line="24" TopLine="14"/>
-      </Position>
-      <Position>
-        <Filename Value="conexao_banco.lpr"/>
-        <Caret Line="25" TopLine="14"/>
+        <Caret Line="69" TopLine="47"/>
       </Position>
       <Position>
         <Filename Value="units\udb.pas"/>
-        <Caret Line="96" TopLine="89"/>
+        <Caret Line="72" TopLine="47"/>
       </Position>
       <Position>
         <Filename Value="units\udb.pas"/>
-        <Caret Line="99" TopLine="89"/>
-      </Position>
-      <Position>
-        <Filename Value="units\udb.pas"/>
-        <Caret Line="102" TopLine="89"/>
-      </Position>
-      <Position>
-        <Filename Value="units\udb.pas"/>
-        <Caret Line="103" TopLine="89"/>
-      </Position>
-      <Position>
-        <Filename Value="units\udb.pas"/>
-        <Caret Line="104" TopLine="89"/>
-      </Position>
-      <Position>
-        <Filename Value="units\udb.pas"/>
-        <Caret Line="105" TopLine="89"/>
-      </Position>
-      <Position>
-        <Filename Value="conexao_banco.lpr"/>
-        <Caret Line="25" TopLine="14"/>
+        <Caret Line="69" TopLine="47"/>
       </Position>
       <Position>
         <Filename Value="conexao_banco.lpr"/>
         <Caret Line="24" TopLine="14"/>
       </Position>
       <Position>
+        <Filename Value="units\udb.pas"/>
+        <Caret Line="168" TopLine="153"/>
+      </Position>
+      <Position>
+        <Filename Value="units\udb.pas"/>
+        <Caret Line="169" TopLine="153"/>
+      </Position>
+      <Position>
+        <Filename Value="units\udb.pas"/>
+        <Caret Line="170" TopLine="153"/>
+      </Position>
+      <Position>
+        <Filename Value="units\udb.pas"/>
+        <Caret Line="172" TopLine="153"/>
+      </Position>
+      <Position>
+        <Filename Value="units\udb.pas"/>
+        <Caret Line="173" TopLine="153"/>
+      </Position>
+      <Position>
+        <Filename Value="units\udb.pas"/>
+        <Caret Line="174" TopLine="153"/>
+      </Position>
+      <Position>
         <Filename Value="conexao_banco.lpr"/>
-        <Caret Line="25" TopLine="14"/>
+        <Caret Line="34" TopLine="18"/>
       </Position>
       <Position>
-        <Filename Value="units\udb.pas"/>
-        <Caret Line="96" TopLine="85"/>
+        <Filename Value="conexao_banco.lpr"/>
+        <Caret Line="35" TopLine="18"/>
       </Position>
       <Position>
-        <Filename Value="units\udb.pas"/>
-        <Caret Line="99" TopLine="85"/>
+        <Filename Value="conexao_banco.lpr"/>
+        <Caret Line="39" Column="24" TopLine="18"/>
+      </Position>
+      <Position>
+        <Filename Value="conexao_banco.lpr"/>
+        <Caret Line="34" TopLine="18"/>
+      </Position>
+      <Position>
+        <Filename Value="conexao_banco.lpr"/>
+        <Caret Line="35" TopLine="18"/>
+      </Position>
+      <Position>
+        <Filename Value="conexao_banco.lpr"/>
+        <Caret Line="38" TopLine="18"/>
+      </Position>
+      <Position>
+        <Filename Value="conexao_banco.lpr"/>
+        <Caret Line="39" TopLine="18"/>
       </Position>
     </JumpHistory>
     <RunParams>
@@ -283,15 +306,6 @@
     </RunParams>
   </ProjectSession>
   <Debugging>
-    <BreakPoints>
-      <Item>
-        <Kind Value="bpkSource"/>
-        <WatchScope Value="wpsLocal"/>
-        <WatchKind Value="wpkWrite"/>
-        <Source Value="conexao_banco.lpr"/>
-        <Line Value="24"/>
-      </Item>
-    </BreakPoints>
     <Watches>
       <Item>
         <Expression Value="dbutils"/>
