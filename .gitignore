@@ -52,6 +52,8 @@
 *.rsm
 *.tds
 *.dcu
+*.ppu
+*.rsj
 *.lib
 *.a
 *.o
@@ -87,5 +89,6 @@ modules/
 
 
 src/backup
+src/backp
 src/lib
 src/lib/*

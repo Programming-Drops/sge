@@ -23,6 +23,7 @@ var
  funcionario : PFuncionario;
 begin
 
+  ReadLn('...');
   conexao := CrateNewDataBase('teste.db');
   if (ExecuteScipt('..\db\estrutura incial.sql', conexao, error) = esrScriptError) then
   begin

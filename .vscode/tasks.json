@@ -1,0 +1,36 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "fpc",
+			"label": "conexao_banco",
+			"file": "conexao_banco.lpr",
+			"cwd": "${workspaceFolder}\\src",
+			"cleanExt": ".o,.ppu,.rsj",
+			"buildEvent": {
+				"before_build": [
+					"powershell -NoProfile -ExecutionPolicy Bypass -Command \"New-Item -ItemType Directory -Force -Path '..\\bin\\win64-x86_64' | Out-Null\""
+				]
+			},
+			"buildOption": {
+				"targetOS": "win64",
+				"targetCPU": "x86_64",
+				"syntaxMode": "ObjFPC",
+				"searchPath": [
+					"units"
+				],
+				"unitOutputDir": "..\\bin\\win64-x86_64",
+				"outputFile": "..\\bin\\conexao_banco.exe",
+				"customOptions": [
+					"-gl",
+					"-gw3"
+				]
+			},
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"problemMatcher": "$fpc"
+		}
+	]
+}

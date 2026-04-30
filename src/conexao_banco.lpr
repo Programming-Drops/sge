@@ -14,11 +14,9 @@ uses
   uCargos, uDb, uFuncionario, uConstantes;
 
 
-var
- id : integer;
+var 
  idFuncionario: Int64;
- conexao : TSQLite3Connection;
- cargo   : PCargo;
+ conexao : TSQLite3Connection; 
  error   : TScriptError;
  funcionario : PFuncionario;
 begin

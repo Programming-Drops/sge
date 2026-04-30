@@ -1,0 +1,30 @@
+{
+	"fpctoolkit.env.PP": "D:\\lazarus\\fpc\\3.2.2\\bin\\x86_64-win64\\fpc.exe",
+	"fpctoolkit.env.FPCDIR": "D:\\lazarus\\fpc\\3.2.2",
+	"fpctoolkit.env.LAZARUSDIR": "D:\\lazarus",
+	"fpctoolkit.env.FPCTARGET": "win64",
+	"fpctoolkit.env.FPCTARGETCPU": "x86_64",
+	"fpctoolkit.searchPath": [
+		"D:\\dev\\pd\\sge\\src\\units"
+	],
+	"fpctoolkit.customOptions": [
+		"-MObjFPC",
+		"-gl",
+		"-gw3"
+	],
+	"fpctoolkit.lazarus.enabled": true,
+	"fpctoolkit.lazarus.preferLazbuild": false,
+	"fpctoolkit.lsp.initializationOptions.program": "D:\\dev\\pd\\sge\\src\\conexao_banco.lpr",
+	"fpctoolkit.lsp.initializationOptions.includeWorkspaceFoldersAsUnitPaths": true,
+	"fpctoolkit.lsp.initializationOptions.includeWorkspaceFoldersAsIncludePaths": true,
+	"fpctoolkit.lsp.initializationOptions.checkSyntax": true,
+	"fpctoolkit.lsp.initializationOptions.publishDiagnostics": true,
+	"files.exclude": {
+		"src/backup": true,
+		"src/backp": true
+	},
+	"search.exclude": {
+		"src/backup": true,
+		"src/backp": true
+	}
+}
