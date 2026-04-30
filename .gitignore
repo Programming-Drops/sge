@@ -90,6 +90,7 @@ modules/
 # other
 
 
+bin/x86_64-win64/
 bin/win64-x86_64/
 database.sqlite3
 teste.db

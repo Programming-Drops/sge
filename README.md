@@ -70,7 +70,7 @@ O executável do compilador costuma ficar em:
 3. Selecione o arquivo:
 
 ```text
-src\conexao_banco.lpi
+src\sge.lpi
 ```
 
 4. Compile o projeto com **Run > Build** ou usando o atalho padrão do Lazarus.
@@ -79,7 +79,7 @@ src\conexao_banco.lpi
 O arquivo principal do programa é:
 
 ```text
-src\conexao_banco.lpr
+src\sge.lpr
 ```
 
 ## Compilando com Free Pascal pela linha de comando
@@ -87,25 +87,25 @@ src\conexao_banco.lpr
 Na raiz do projeto, execute:
 
 ```powershell
-& "$env:FPCDIR\bin\x86_64-win64\fpc.exe" -MObjFPC -Fusrc\units -FEbin -FUbin\win64-x86_64 src\conexao_banco.lpr
+& "$env:FPCDIR\bin\x86_64-win64\fpc.exe" -MObjFPC -Fusrc\units -FEbin -FUbin\x86_64-win64 src\sge.lpr
 ```
 
 No `cmd`, o mesmo comando fica:
 
 ```bat
-"%FPCDIR%\bin\x86_64-win64\fpc.exe" -MObjFPC -Fusrc\units -FEbin -FUbin\win64-x86_64 src\conexao_banco.lpr
+"%FPCDIR%\bin\x86_64-win64\fpc.exe" -MObjFPC -Fusrc\units -FEbin -FUbin\x86_64-win64 src\sge.lpr
 ```
 
 Depois, execute o programa compilado:
 
 ```powershell
-.\bin\conexao_banco.exe
+.\bin\sge.exe
 ```
 
 Se o comando `fpc` estiver no seu `PATH`, você também pode usar:
 
 ```powershell
-fpc -MObjFPC -Fusrc\units -FEbin -FUbin\win64-x86_64 src\conexao_banco.lpr
+fpc -MObjFPC -Fusrc\units -FEbin -FUbin\x86_64-win64 src\sge.lpr
 ```
 
 Para colocar o FPC no `PATH` apenas na sessão atual do PowerShell:
@@ -137,7 +137,7 @@ E em seguida executa os testes.
 Arquivos gerados por compilação, bancos locais e diretórios de backup não devem
 ser versionados. Exemplos:
 
-- `bin/win64-x86_64/`
+- `bin/x86_64-win64/`
 - `database.sqlite3`
 - `teste.db`
 - `src/backup/`

@@ -3,13 +3,13 @@
 	"tasks": [
 		{
 			"type": "fpc",
-			"label": "conexao_banco",
-			"file": "conexao_banco.lpr",
+			"label": "sge",
+			"file": "sge.lpr",
 			"cwd": "${workspaceFolder}\\src",
 			"cleanExt": ".o,.ppu,.rsj",
 			"buildEvent": {
 				"before_build": [
-					"powershell -NoProfile -ExecutionPolicy Bypass -Command \"New-Item -ItemType Directory -Force -Path '..\\bin\\win64-x86_64' | Out-Null\""
+					"powershell -NoProfile -ExecutionPolicy Bypass -Command \"New-Item -ItemType Directory -Force -Path '..\\bin\\x86_64-win64' | Out-Null\""
 				]
 			},
 			"buildOption": {
@@ -19,8 +19,8 @@
 				"searchPath": [
 					"units"
 				],
-				"unitOutputDir": "..\\bin\\win64-x86_64",
-				"outputFile": "..\\bin\\conexao_banco.exe",
+				"unitOutputDir": "..\\bin\\x86_64-win64",
+				"outputFile": "..\\bin\\sge.exe",
 				"customOptions": [
 					"-gl",
 					"-gw3"

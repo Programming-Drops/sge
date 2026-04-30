@@ -2,11 +2,11 @@
 	"version": "0.2.0",
 	"configurations": [
 		{
-			"name": "Debug conexao_banco",
+			"name": "Debug SGE",
 			"type": "by-gdb",
 			"request": "launch",
-			"preLaunchTask": "conexao_banco",
-			"program": "${workspaceFolder}\\bin\\conexao_banco.exe",
+			"preLaunchTask": "sge",
+			"program": "${workspaceFolder}\\bin\\sge.exe",
 			"cwd": "${workspaceFolder}\\src",
 			"debuggerPath": "D:\\lazarus\\mingw\\x86_64-win64\\bin\\gdb.exe",
 			"varUpperCase": true,

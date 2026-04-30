@@ -14,7 +14,7 @@
 	],
 	"fpctoolkit.lazarus.enabled": true,
 	"fpctoolkit.lazarus.preferLazbuild": false,
-	"fpctoolkit.lsp.initializationOptions.program": "D:\\dev\\pd\\sge\\src\\conexao_banco.lpr",
+	"fpctoolkit.lsp.initializationOptions.program": "D:\\dev\\pd\\sge\\src\\sge.lpr",
 	"fpctoolkit.lsp.initializationOptions.includeWorkspaceFoldersAsUnitPaths": true,
 	"fpctoolkit.lsp.initializationOptions.includeWorkspaceFoldersAsIncludePaths": true,
 	"fpctoolkit.lsp.initializationOptions.checkSyntax": true,

@@ -1,4 +1,4 @@
-program conexao_banco;
+program sge;
 
 {$mode objfpc}{$H+}
 {$codepage utf8}
