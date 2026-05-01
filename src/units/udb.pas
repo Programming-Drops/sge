@@ -25,9 +25,11 @@ type
   end;
 
 
-function GetConnection(
-  const ADatabaseName: string = DEFAULT_DB_NAME;
-  ADefaultTransaction: boolean = true ): TSQLite3Connection;
+
+procedure SetDefaultConnection(AConnection: TSQLite3Connection);
+function GetDefaultConnection: TSQLite3Connection;
+
+function GetConnection(const ADatabaseName: string = DEFAULT_DB_NAME; ADefaultTransaction: boolean = true ): TSQLite3Connection;
 
 (* Cria um banco de dados novo e retorna um objeto de conexão para ele *)
 function CrateNewDataBase(const ADatabaseName: string) : TSQLite3Connection;
@@ -36,10 +38,9 @@ function GetQuery(const ASql: string; AAutoOpen: boolean = false) : TSQLQuery;
 
 function ParseScript(const AScriptFileName: string): TStringList;
 
-(*
- Executes a script file and returns the details on AError pointer.
- Function caller is responsible for free its mememory
-*)
+
+// Executes a SQL script file against the given connection.
+// Function caller is responsible for free its mememory.
 function ExecuteScipt(
   const AScriptFileName: string;
   const AConnection: TSQLite3Connection;
@@ -75,6 +76,32 @@ begin
 end;
 
 {implementations}
+
+procedure SetDefaultConnection(AConnection: TSQLite3Connection);
+begin
+  if (lConnection <> nil) then
+  begin
+    lConnection.Close;
+    lConnection.Free;
+  end;
+  lConnection := AConnection;
+
+  {if (lConnection = nil) then
+     lConnection := GetConnection(ADatabaseName)
+  else
+    if (ADatabaseName <> lConnection.DatabaseName) then
+    begin
+      lConnection.Close;
+      lConnection.Free;
+      lConnection := GetConnection(ADatabaseName)
+    end;
+    }
+end;
+
+function GetDefaultConnection: TSQLite3Connection;
+begin
+  Result := lConnection;
+end;
 
 function GetConnection(
   const ADatabaseName: string;

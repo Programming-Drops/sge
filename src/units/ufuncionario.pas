@@ -1,6 +1,7 @@
 unit uFuncionario;
 
 {$mode ObjFPC}{$H+}
+{$modeswitch advancedrecords}
 
 interface
 
@@ -9,13 +10,21 @@ uses
 
 type
   PFuncionario = ^TFuncionario;
+
+  { TFuncionario }
+
   TFuncionario = record
+  public
     Id        : int64;
     Nome      : string;
     IdCargo   : integer;
     IdUsuario : integer;
     Ativo     : boolean;
+
+    procedure Print;
   end;
+
+
 
 
   function FuncionarioInsert(
@@ -34,7 +43,7 @@ type
 implementation
 
 uses
-  udb, sqldb, sqlite3conn;
+  uStrings, udb, sqldb, sqlite3conn, sysutils;
 
 function FuncionarioInsert(
       const ANome      : string;
@@ -150,6 +159,18 @@ begin
   finally
     query.Free;
   end;
+end;
+
+{ TFuncionario }
+
+
+procedure TFuncionario.Print;
+begin
+  Writeln('Id        : ', Self.Id);
+  Writeln('Nome      : ', Self.Nome);
+  Writeln('IdCargo   : ', IfThenString(IdCargo = NULL_ID, 'null', IntToStr(IdCargo)));
+  Writeln('IdUsuario : ', IfThenString(IdUsuario = NULL_ID, 'null', IntToStr(IdUsuario)));
+  Writeln('Ativo     : ', Self.Ativo);
 end;
 
 end.

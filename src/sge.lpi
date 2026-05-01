@@ -48,6 +48,15 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="uConstantes"/>
       </Unit>
+      <Unit>
+        <Filename Value="units\ustrings.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="uStrings"/>
+      </Unit>
+      <Unit>
+        <Filename Value="units\ulog.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

@@ -1,6 +1,7 @@
 unit uCargos;
 
 {$mode ObjFPC}{$H+}
+{$modeswitch advancedrecords}
 
 interface
 
@@ -9,11 +10,19 @@ uses
 
 type
   PCargo = ^TCargo;
+
+  { TCargo }
+
   TCargo = record
+  public
     Id   : integer;
     Nome : string;
-  end;
 
+    function CargoLoad(const AId: integer): boolean;
+    function CargoUpdate(const AId: integer; const ANome: string) : boolean;
+    function CargoDelete(const AId: integer): boolean;
+    procedure CargoPrint;
+  end;
 
 
   function CargoInsert(const ANome: string): PCargo;
@@ -68,7 +77,7 @@ begin
      query.Open;
      if (not query.EOF) then
      begin
-       Result := GetMem(SizeOf(TCargo));
+       Result := GetMem(SizeOf(TCargo));  // malloc
        Result^.Id   := query.FieldByName('id').AsInteger;
        Result^.Nome := query.FieldByName('nome').AsString;
      end;
@@ -121,7 +130,50 @@ procedure CargoPrint(ACargo: PCargo);
    WriteLn('  nome ' + ACargo^.Nome);
  end;
 
+{ TCargo }
+
+function TCargo.CargoLoad(const AId: integer): boolean;
+const
+  SQL_SELECT = 'select id, nome from cargos where id = :id';
+var
+  query : TSQLQuery;
+begin
+  Result := false;
+  try
+     query:= GetQuery(SQL_SELECT);
+     query.ParamByName('id').AsInteger:= AId;
+     query.Open;
+     if (not query.EOF) then
+     begin
+       Id   := query.FieldByName('id').AsInteger;
+       Nome := query.FieldByName('nome').AsString;
+       Result := True;
+     end;
+  finally
+     query.Close;
+     query.Free;
+  end;
+end;
+
+function TCargo.CargoUpdate(const AId: integer; const ANome: string): boolean;
+begin
+  Result := CargoUpdate(AId, Nome);
+end;
+
+function TCargo.CargoDelete(const AId: integer): boolean;
+begin
+  result := CargoDelete(AId);
+end;
+
+procedure TCargo.CargoPrint;
+begin
+  WriteLn('  id   ' + IntToStr(Self.Id));
+  WriteLn('  nome ' + Self.Nome);
+end;
+
+
 
 
 end.
+
 

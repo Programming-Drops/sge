@@ -110,3 +110,19 @@ create table movimentacoes (
 );
 
 
+
+
+/*  
+   MOVIMENTAÇÕES
+   ------
+   loga as operações do sistema
+   tipo (E = erro, I = informação)
+*/
+create table log (
+    id   integer primary key autoincrement,
+    data timestamp not null default (datetime('now')), /* ISO8601 strings ("YYYY-MM-DD HH:MM:SS.SSS") */
+    tipo text(1) not null check( tipo in('E', 'I')) ,    
+    text varchar
+);
+
+

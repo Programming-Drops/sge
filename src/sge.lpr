@@ -12,17 +12,52 @@ uses
   sqlite3conn,
   SysUtils,
 
-  uCargos, uDb, uFuncionario, uConstantes;
+  uCargos, uDb, uFuncionario, uConstantes, uStrings, ulog;
 
 
-var 
- idFuncionario: Int64;
- conexao : TSQLite3Connection; 
- error   : TScriptError;
- funcionario : PFuncionario;
+procedure InsertTestLogs;
+var
+  i : integer;
+  x : real;
 begin
+  WriteLn('Inserindo logs');
+  LogInfo('Log de teste');
+  LogError('Erro fake');
+  for i:= 1 to 300 do
+  begin
+    LogInfo('Log de teste ' + Inttostr(i));
+    if i mod 20 = 0 then
+    begin
+      x := (i / 300) * 100;
+      WriteLn(x:2:0, '% concluído.');
+    end;
+  end;
+  WriteLn('100% concluído.');
+end;
 
-  conexao := CrateNewDataBase('teste.db');
+
+procedure InsertCargos;
+var
+  i : integer;
+begin
+  WriteLn('Inserindo cargos');
+  for i := 1 to 300 do
+  begin
+    CargoInsert('Cargo ' + IntToStr(i));
+    if i mod 20 = 0 then
+    begin
+      WriteLn(((i/300)*100):2:0, '% concluído.');
+    end;
+  end;
+end;
+
+var
+  conexao : TSQLite3Connection;
+  error    : TScriptError;
+begin
+  conexao := CrateNewDataBase('teste-log.db');
+  SetDefaultConnection(conexao);
+
   if (ExecuteScipt('..\db\estrutura incial.sql', conexao, error) = esrScriptError) then
   begin
     WriteLn('Erro ao exectuar o script');
@@ -31,18 +66,7 @@ begin
     Halt(1);
   end;
 
-  funcionario:= FuncionarioInsert('Fabiano Xavier', 1, NULL_ID, true);
-  if (funcionario = nil) then
-     WriteLn('Erro ao inserir o funcionário')
-  else begin
-     idFuncionario := funcionario^.Id;
-     WriteLn('Funcionário ', idFuncionario , ' inserido sem erros');
-     Freemem(funcionario);
-     funcionario := FuncionarioLoadById(idFuncionario);
-     if (funcionario = nil) then
-       WriteLn('Não foi possível carregar o funcinário');
-  end;
-
-
+  //InsertCargos;
+  InsertTestLogs;
 end.
 
