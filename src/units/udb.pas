@@ -25,6 +25,12 @@ type
   end;
 
 
+  TransactionBehaviour = (
+     bhCommit,
+     bhRollback
+  );
+
+
 
 procedure SetDefaultConnection(AConnection: TSQLite3Connection);
 function GetDefaultConnection: TSQLite3Connection;
@@ -33,11 +39,11 @@ function GetConnection(const ADatabaseName: string = DEFAULT_DB_NAME; ADefaultTr
 
 (* Cria um banco de dados novo e retorna um objeto de conexão para ele *)
 function CrateNewDataBase(const ADatabaseName: string) : TSQLite3Connection;
-
-function GetQuery(const ASql: string; AAutoOpen: boolean = false) : TSQLQuery;
-
+function GetQuery(const ASql: string; AAutoOpen: boolean = false; ATransaction: TSQLTransaction = nil) : TSQLQuery;
 function ParseScript(const AScriptFileName: string): TStringList;
 
+(* Funções gerenciamento de transçõs *)
+function StartTransaction(AConnection: TSQLite3Connection; ABehaviour : TransactionBehaviour) : TSQLTransaction;
 
 // Executes a SQL script file against the given connection.
 // Function caller is responsible for free its mememory.
@@ -119,7 +125,9 @@ begin
   Result := lConnection;
 end;
 
-function GetQuery(const ASql: string; AAutoOpen: boolean) : TSQLQuery;
+function GetQuery(
+  const ASql: string; AAutoOpen: boolean;
+  ATransaction: TSQLTransaction) : TSQLQuery;
 var
   cnn : TSQLite3Connection;
 begin
@@ -127,6 +135,10 @@ begin
   result := TSQLQuery.Create(cnn);
   result.SQLConnection := cnn;
   result.SQL.Add(ASql);
+
+  if ATransaction <> nil then
+    Result.Transaction := ATransaction;
+
   if AAutoOpen then
     result.Open;
 end;
@@ -204,7 +216,36 @@ begin
   Assert(Result.Connected);
 end;
 
+function StartTransaction(
+  AConnection: TSQLite3Connection;
+  ABehaviour : TransactionBehaviour) : TSQLTransaction;
+begin
+  Assert(AConnection <> nil);
+  Assert(AConnection.Connected = True);
+
+  Result := nil;
+  if (AConnection.Transaction = nil) then
+  begin
+    AConnection.Transaction := TSQLTransaction.Create(AConnection);
+  end else
+  if (AConnection.Transaction <> nil) then
+  begin
+    case ABehaviour of
+      bhCommit   : AConnection.Transaction.Commit;
+      bhRollback : AConnection.Transaction.Rollback;
+    end;
+  end;
+
+  AConnection.Transaction.StartTransaction;
+  Result := AConnection.Transaction;
+end;
+
+
+
+
+
 end.
+
 
 
 

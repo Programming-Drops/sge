@@ -15,25 +15,35 @@ uses
   uCargos, uDb, uFuncionario, uConstantes, uStrings, ulog;
 
 
-procedure InsertTestLogs;
+procedure InsertTestLogs(conexao : TSQLite3Connection);
+const
+  LOG_COUNT = 50 * 1000;
 var
   i : integer;
   x : real;
+  t : TSQLTransaction;
 begin
-  WriteLn('Inserindo logs');
+  WriteLn('Inserindo ', LOG_COUNT,' logs...');
   LogInfo('Log de teste');
   LogError('Erro fake');
-  for i:= 1 to 300 do
+
+  t :=  StartTransaction(conexao, bhRollback);
+  for i:= 1 to LOG_COUNT do
   begin
-    LogInfo('Log de teste ' + Inttostr(i));
-    if i mod 20 = 0 then
+    LogInfo(t, 'Log de teste ' + Inttostr(i));
+    if i mod 50 = 0 then
     begin
-      x := (i / 300) * 100;
-      WriteLn(x:2:0, '% concluído.');
+      x := (i / LOG_COUNT) * 100;
+      WriteLn(x:5:2, '% concluído.');
     end;
   end;
+  t.Commit;
+
   WriteLn('100% concluído.');
 end;
+
+
+
 
 
 procedure InsertCargos;
@@ -67,6 +77,6 @@ begin
   end;
 
   //InsertCargos;
-  InsertTestLogs;
+  InsertTestLogs(conexao);
 end.
 
