@@ -12,7 +12,9 @@ uses
   sqlite3conn,
   SysUtils,
 
-  uCargos, uDb, uFuncionario, uConstantes, uStrings, ulog;
+  SGE.Database,
+  SGE.Log,
+  SGE.Models.Cargo;
 
 
 procedure InsertTestLogs(conexao : TSQLite3Connection);
@@ -42,24 +44,6 @@ begin
   WriteLn('100% concluído.');
 end;
 
-
-
-
-
-procedure InsertCargos;
-var
-  i : integer;
-begin
-  WriteLn('Inserindo cargos');
-  for i := 1 to 300 do
-  begin
-    CargoInsert('Cargo ' + IntToStr(i));
-    if i mod 20 = 0 then
-    begin
-      WriteLn(((i/300)*100):2:0, '% concluído.');
-    end;
-  end;
-end;
 
 var
   conexao : TSQLite3Connection;
