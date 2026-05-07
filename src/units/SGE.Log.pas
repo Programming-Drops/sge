@@ -37,19 +37,18 @@ type
 
 
 
-
 implementation
 
 uses
-  udb, sqlite3conn, SysUtils;
+  SGE.DataBase,
+  sqlite3conn,
+  SysUtils;
 
 function Log(ATipo: TLogType; const AText: string) : Int64;
 const
   SQL_INSERT = 'insert into log(tipo, text) values (:tipo, :text)';
 var
   Query: TSQLQuery;
-  cnn  : TSQLite3Connection;
-  sql:  string;
 begin
   try
      Query := GetQuery(SQL_INSERT);

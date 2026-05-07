@@ -35,7 +35,10 @@ type
 implementation
 
 uses
-  sqldb, sysutils, udb, uConstantes;
+  sysutils, sqldb,
+
+  SGE.Database,
+  SGE.Consts;
 
 function CargoInsert(const ANome: string): PCargo;
 const
