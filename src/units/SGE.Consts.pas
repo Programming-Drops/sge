@@ -1,4 +1,4 @@
-unit uConstantes;
+unit SGE.Consts;
 
 {$mode ObjFPC}{$H+}
 

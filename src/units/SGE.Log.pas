@@ -1,4 +1,4 @@
-unit ulog;
+unit SGE.Log;
 
 {$mode ObjFPC}{$H+}
 

@@ -1,4 +1,4 @@
-unit uCargos;
+unit SGE.Models.Cargo;
 
 {$mode ObjFPC}{$H+}
 {$modeswitch advancedrecords}

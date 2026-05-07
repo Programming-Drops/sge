@@ -30,31 +30,23 @@
         <IsPartOfProject Value="True"/>
       </Unit>
       <Unit>
-        <Filename Value="units\ucargos.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="uCargos"/>
-      </Unit>
-      <Unit>
-        <Filename Value="units\udb.pas"/>
+        <Filename Value="units\SGE.Log.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit>
       <Unit>
-        <Filename Value="units\ufuncionario.pas"/>
+        <Filename Value="units\SGE.Consts.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="uFuncionario"/>
       </Unit>
       <Unit>
-        <Filename Value="units\uconstantes.pas"/>
+        <Filename Value="units\SGE.Models.Cargo.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="uConstantes"/>
       </Unit>
       <Unit>
-        <Filename Value="units\ustrings.pas"/>
+        <Filename Value="units\SGE.Models.Funcionario.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="uStrings"/>
       </Unit>
       <Unit>
-        <Filename Value="units\ulog.pas"/>
+        <Filename Value="units\SGE.DataBase.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit>
     </Units>

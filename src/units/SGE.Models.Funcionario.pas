@@ -1,4 +1,4 @@
-unit uFuncionario;
+unit SGE.Models.Funcionario;
 
 {$mode ObjFPC}{$H+}
 {$modeswitch advancedrecords}
