@@ -31,7 +31,6 @@ type
   );
 
 
-
 procedure SetDefaultConnection(AConnection: TSQLite3Connection);
 function GetDefaultConnection: TSQLite3Connection;
 
@@ -91,17 +90,6 @@ begin
     lConnection.Free;
   end;
   lConnection := AConnection;
-
-  {if (lConnection = nil) then
-     lConnection := GetConnection(ADatabaseName)
-  else
-    if (ADatabaseName <> lConnection.DatabaseName) then
-    begin
-      lConnection.Close;
-      lConnection.Free;
-      lConnection := GetConnection(ADatabaseName)
-    end;
-    }
 end;
 
 function GetDefaultConnection: TSQLite3Connection;
@@ -242,6 +230,8 @@ end;
 
 
 
+initialization
+  lConnection := nil;
 
 
 end.

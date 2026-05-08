@@ -46,6 +46,7 @@ const
 var
    newId :Int64;
    query: TSQLQuery;
+   p : PCargo;
 begin
    Result := nil;
    try
@@ -57,8 +58,9 @@ begin
       newId := TSQLite3Connection(query.SQLConnection).GetInsertID;
       if newId <> NULL_ID then
       begin
-         Result := GetMem(SizeOf(TCargo));
-         Result^.Id   := query.FieldByName('id').AsInteger;
+         New(p);
+         Result := p;
+         Result^.Id   := newId;
          Result^.Nome := ANome;
       end;
       query.Close;
@@ -72,6 +74,7 @@ const
   SQL_SELECT = 'select id, nome from cargos where id = :id';
 var
   query : TSQLQuery;
+  p     : PCargo;
 begin
   Result := nil;
   try
@@ -80,7 +83,8 @@ begin
      query.Open;
      if (not query.EOF) then
      begin
-       Result := GetMem(SizeOf(TCargo));  // malloc
+       New(p);
+       Result := p;
        Result^.Id   := query.FieldByName('id').AsInteger;
        Result^.Nome := query.FieldByName('nome').AsString;
      end;
