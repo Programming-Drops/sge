@@ -39,7 +39,7 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <OtherUnitFiles Value="units"/>
+      <OtherUnitFiles Value="units;..\modules\lazjwt\src;..\modules\hashlib4pascal\HashLib\src\Base;..\modules\hashlib4pascal\HashLib\src\Checksum;..\modules\hashlib4pascal\HashLib\src\Crypto;..\modules\hashlib4pascal\HashLib\src\Crypto\Blake2BParams;..\modules\hashlib4pascal\HashLib\src\Crypto\Blake2SParams;..\modules\hashlib4pascal\HashLib\src\Hash32;..\modules\hashlib4pascal\HashLib\src\Hash64;..\modules\hashlib4pascal\HashLib\src\Include;..\modules\hashlib4pascal\HashLib\src\Interfaces;..\modules\hashlib4pascal\HashLib\src\Interfaces\IBlake2BParams;..\modules\hashlib4pascal\HashLib\src\Interfaces\IBlake2SParams;..\modules\hashlib4pascal\HashLib\src\KDF;..\modules\hashlib4pascal\HashLib\src\Nullable;..\modules\hashlib4pascal\HashLib\src\NullDigest;..\modules\hashlib4pascal\HashLib\src\Packages;..\modules\hashlib4pascal\HashLib\src\Utils"/>
       <UnitOutputDirectory Value="..\bin\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Linking>

@@ -108,6 +108,7 @@ begin
     lConnection.DatabaseName:= ADatabaseName;
     if ADefaultTransaction then
        lConnection.Transaction := TSQLTransaction.Create(Result);
+    lConnection.Params.Add('foreign_keys=ON');
     lConnection.Open;
   end;
   Result := lConnection;
@@ -199,6 +200,7 @@ begin
   Result := TSQLite3Connection.Create(nil);
   Result.DatabaseName:= ADatabaseName;
   Result.CreateDB;
+  Result.Params.Add('foreign_keys=ON');
   Result.Open;
 
   Assert(Result.Connected);

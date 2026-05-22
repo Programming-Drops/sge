@@ -24,11 +24,14 @@ type
     procedure CargoPrint;
   end;
 
+  TCargoArray = array of TCargo;
+
 
   function CargoInsert(const ANome: string): PCargo;
   function CargoLoadById(const AId: integer): PCargo;
   function CargoUpdate(const AId: integer; const ANome: string) : boolean;
   function CargoDelete(const AId: integer): boolean;
+  function CargoLoad: TCargoArray;
   procedure CargoPrint(ACargo: PCargo);
 
 
@@ -67,6 +70,32 @@ begin
    finally
       query.Free;
    end;
+end;
+
+
+function CargoLoad: TCargoArray;
+const
+  SQL_SELECT = 'select id, nome from cargos order by id';
+var
+  i: integer;
+  query: TSQLQuery;
+begin
+  SetLength(Result, 0);
+  try
+     query:= GetQuery(SQL_SELECT, true);
+     Setlength(Result, query.RecordCount);
+     i := 0;
+     while not query.Eof do
+     begin
+       Result[i].Id   := query.FieldByName('id').AsInteger;
+       Result[i].Nome := query.FieldByName('nome').AsString;
+       query.Next;
+       Inc(i);
+     end;
+  finally
+     query.Close;
+     query.Free;
+  end;
 end;
 
 function CargoLoadById(const AId: integer): PCargo;

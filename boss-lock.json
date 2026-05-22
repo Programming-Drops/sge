@@ -1,0 +1,22 @@
+{
+	"hash": "d41d8cd98f00b204e9800998ecf8427e",
+	"updated": "2026-05-21T17:32:53.4897192-03:00",
+	"installedModules": {
+		"github.com/andre-djsystem/hashlib4pascal": {
+			"name": "hashlib4pascal",
+			"version": "1.0.0",
+			"hash": "8528036224699ab509c7d8f31d691ffb",
+			"artifacts": {},
+			"failed": false,
+			"changed": false
+		},
+		"https://github.com/andre-djsystem/lazjwt": {
+			"name": "lazjwt",
+			"version": "1.2.0",
+			"hash": "57e8b1318f987587c121f04539827a32",
+			"artifacts": {},
+			"failed": false,
+			"changed": false
+		}
+	}
+}

@@ -1,0 +1,11 @@
+{
+	"name": "sge",
+	"description": "",
+	"version": "1.0.0",
+	"homepage": "",
+	"mainsrc": "./src",
+	"projects": [],
+	"dependencies": {
+		"https://github.com/andre-djsystem/lazjwt": "^1.2.0"
+	}
+}

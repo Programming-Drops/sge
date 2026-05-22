@@ -1,4 +1,7 @@
 
+PRAGMA foreign_keys = ON;
+
+
 /* 
    Convenção:
     1. cria a entidade
