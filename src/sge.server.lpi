@@ -29,6 +29,30 @@
         <Filename Value="sge.server.lpr"/>
         <IsPartOfProject Value="True"/>
       </Unit>
+      <Unit>
+        <Filename Value="units\SGE.Api.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="units\sge.api.auth.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="SGE.Api.Auth"/>
+      </Unit>
+      <Unit>
+        <Filename Value="units\sge.api.cargos.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="SGE.Api.Cargos"/>
+      </Unit>
+      <Unit>
+        <Filename Value="units\sge.api.healthcheck.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="SGE.Api.HealthCheck"/>
+      </Unit>
+      <Unit>
+        <Filename Value="units\sge.api.database.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="SGE.Api.DataBase"/>
+      </Unit>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
