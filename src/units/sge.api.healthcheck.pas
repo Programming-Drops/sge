@@ -23,9 +23,7 @@ procedure GetHealth(ARequest: TRequest; AResponse: TResponse);
 begin
   WriteLn(' > ', ARequest.Method, ' ', ARequest.URI);
 
-  AResponse.Code      := 200;
-  AResponse.Content   := 'Healty';
-  AResponse.SendContent;
+  SendOk(AResponse, 'Healty');
 end;
 
 

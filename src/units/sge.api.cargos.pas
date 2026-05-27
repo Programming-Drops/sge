@@ -28,6 +28,8 @@ var
   jsonArray : TJSONArray;
   jsonObj   : TJSONObject;
 begin
+  WriteLn(' > ', ARequest.Method, ' ', ARequest.URI);
+
   cargos := CargoLoad;
   jsonArray := TJSONArray.Create;
   try
@@ -56,27 +58,20 @@ begin
   id := StrToInt(ARequest.RouteParams['id']);
   try
     if CargoDelete(id) then
-      AResponse.Code:= 200
-    else begin
-      AResponse.Code:= 500;
-      AResponse.Content:= 'Internal server error';
-    end;
-    AResponse.SendContent;
+      SendOk(AResponse)
+    else
+      SendInternalServerError(AResponse);
   except
      on e:ESQLDatabaseError do begin
        if Pos('FOREIGN KEY constraint failed', e.Message) >= 0 then
        begin
-         AResponse.Code:= 409;
-         AResponse.Content:= 'Conflict';
-         AResponse.SendContent;
+         SendConfict(AResponse);
        end;
        raise;
      end;
      on e: Exception do begin
        WriteLn('ERR: DeleteCargo : ', e.Message);
-       AResponse.Code:= 500;
-       AResponse.Content:= 'Internal server error';
-       AResponse.SendContent;
+       SendInternalServerError(AResponse);
      end;
   end;
 end;
@@ -91,96 +86,73 @@ begin
   WriteLn(' > ', ARequest.Method, ' ', ARequest.URI);
 
   if (ARequest.ContentType <> 'application/json') then
-   begin
-     AResponse.Code       := 400;
-     AResponse.SendContent;
+  begin
+     SendBadRequest(AResponse);
      Exit;
-   end;
+  end;
 
   if ARequest.ContentLength = 0 then
-     begin
-     AResponse.Code     := 400;
-     AResponse.Content  := 'Content cannot be empty';
-     AResponse.SendContent;
-     Exit;
-   end;
+  begin
+    SendBadRequest(AResponse, 'Content cannot be empty');
+    Exit;
+  end;
 
-   payload := GetJSON(ARequest.Content);
-   if (TJSONObject(payload).Find('nome') = nil) then
-   begin
-     AResponse.Code     := 400;
-     AResponse.Content  := 'The "nome" property was not found on payload ';
-     AResponse.SendContent;
-     Exit;
-   end;
+  payload := GetJSON(ARequest.Content);
+  if (TJSONObject(payload).Find('nome') = nil) then
+  begin
+    SendBadRequest(AResponse, 'The "nome" property was not found on payload ');
+    Exit;
+  end;
 
-   id := StrToInt(ARequest.RouteParams['id']);
-   nome := TJSONObject(payload).Get('nome');
+  id := StrToInt(ARequest.RouteParams['id']);
+  nome := TJSONObject(payload).Get('nome');
 
-   if CargoUpdate(id, nome) then
-   begin
-     AResponse.Code:= 200;
-     AResponse.Content:= 'Cargo updated';
-   end else
-   begin
-     AResponse.Code:= 500;
-     AResponse.Content:= 'Internal server error';
-   end;
-   AResponse.SendContent;
+  if CargoUpdate(id, nome) then
+    SendOk(AResponse, 'Cargo updated')
+  else
+    SendInternalServerError(AResponse);
 end;
 
 procedure PostCargo(ARequest: TRequest; AResponse: TResponse);
 var
   payload: TJSONData;
-  json   : TJSONObject;
-  nome: string;
+  nome, location: string;
   p : PCargo;
 begin
   WriteLn(' > ', ARequest.Method, ' ', ARequest.URI);
 
   if (ARequest.ContentType <> 'application/json') then
    begin
-     AResponse.Code       := 400;
-     AResponse.SendContent;
+     SendBadRequest(AResponse);
      Exit;
    end;
 
   if ARequest.ContentLength = 0 then
-     begin
-     AResponse.Code     := 400;
-     AResponse.Content  := 'Content cannot be empty';
-     AResponse.SendContent;
-     Exit;
+  begin
+    SendBadRequest(AResponse, 'Content cannot be empty');
+    Exit;
+  end;
+
+  payload := GetJSON(ARequest.Content);
+  if (TJSONObject(payload).Find('nome') = nil) then
+  begin
+    SendBadRequest(AResponse, 'The "name" property was not found on payload ');
+    Exit;
    end;
 
-   payload := GetJSON(ARequest.Content);
-   if (TJSONObject(payload).Find('nome') = nil) then
-   begin
-     AResponse.Code     := 400;
-     AResponse.Content  := 'The "name" property was not found on payload ';
-     AResponse.SendContent;
-     Exit;
-   end;
-
-   nome := TJSONObject(payload).Get('nome');
-   try
-     p := CargoInsert(nome);
-     if p=nil then
-     begin
-       AResponse.Code     := 500;
-       AResponse.Content  := 'Could not create the new "cargo"';
-       AResponse.SendContent;
-       Exit;
+  nome := TJSONObject(payload).Get('nome');
+  try
+    p := CargoInsert(nome);
+    if p=nil then
+      SendBadRequest(AResponse, 'Could not create the new "cargo"')
+    else
+    begin
+      location := Format('/cargo/%d', [p^.Id]);
+      SendCreated(AResponse, location, location);
      end;
-
-    AResponse.Code:= 201;
-    AResponse.SetCustomHeader('Location', Format('/cargo/%d', [p^.Id]));
-    AResponse.Content := Format('/cargo/%d', [p^.Id]);
    finally
      Dispose(p);
    end;
-
-  AResponse.SendContent;
 end;
 
 procedure GetCargo(ARequest: TRequest; AResponse: TResponse);
@@ -192,38 +164,28 @@ begin
   WriteLn(' > ', ARequest.Method, ' ', ARequest.URI);
   if ARequest.RouteParams['id'] = '' then
   begin
-    AResponse.Code     := 404;
-    AResponse.SendContent;
+    SendNotFound(AResponse);
     Exit;
   end;
 
   if not TryStrToInt(ARequest.RouteParams['id'], id) then
   begin
-    AResponse.Code     := 404;
-    AResponse.SendContent;
+    SendNotFound(AResponse);
     Exit;
   end;
 
   p := CargoLoadById(id);
   if p = nil then
-  begin
-     AResponse.Code     := 404;
-     AResponse.SendContent;
-     Exit;
-  end;
-
-  json := TJSONObject.Create;
-  try
-
-    json.Add('id',   p^.Id);
-    json.Add('nome', p^.Nome);
-
-    AResponse.Code:= 200;
-    AResponse.ContentType:= 'application/json';
-    AResponse.Content := json.AsJSON;
-    AResponse.SendContent;
-  finally
-    json.Free;
+    SendNotFound(AResponse)
+  else begin
+    json := TJSONObject.Create;
+    try
+      json.Add('id',   p^.Id);
+      json.Add('nome', p^.Nome);
+      SendOk(AResponse, json.AsJSON, true);
+    finally
+      json.Free;
+    end;
   end;
 end;
 

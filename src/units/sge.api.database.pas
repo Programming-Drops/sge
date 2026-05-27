@@ -24,7 +24,7 @@ var
   conexao : TSQLite3Connection;
   error   : TScriptError;
 begin
-   WriteLn('Initializind database...');
+   WriteLn('Initializing database...');
 
   if FileExists(SERVER_DB) then
   begin

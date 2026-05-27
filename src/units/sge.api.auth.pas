@@ -18,11 +18,10 @@ procedure Register;
 implementation
 
 uses
-  fpjson,
+  fpjson, jsonparser,
   DateUtils, LazJWT,
-
   SGE.Api;
-  //jsonparser;
+
 
 
 function GetJwt(const AUser:string): string;
@@ -34,7 +33,7 @@ begin
   exp := DateTimeToUnix(IncHour(Now));
   CreateGUID(tokenId);
 
-   Result := TLazJWT.New
+  Result := TLazJWT.New
                .SecretJWT(JTW_SECRET)
                .Iss('sge.server')       //Issuer
                .Sub(AUser)              // subject
@@ -48,8 +47,6 @@ begin
                .AddClaim('Limit', 100.00)}
                .Token;
 end;
-
-
 
 
 
