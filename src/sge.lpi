@@ -49,6 +49,11 @@
         <Filename Value="units\SGE.DataBase.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit>
+      <Unit>
+        <Filename Value="units\sge.models.usuario.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="SGE.Models.Usuario"/>
+      </Unit>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

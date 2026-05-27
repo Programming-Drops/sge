@@ -4,13 +4,15 @@ program sge.server;
 uses
   SysUtils,
 
+
   SGE.Models.Cargo,
 
   SGE.Api,
   SGE.Api.Auth,
   SGE.Api.Cargos,
   SGE.Api.HealthCheck,
-  SGE.Api.DataBase;
+  SGE.Api.DataBase,
+  SGE.Api.Usuarios;
 
 
 begin
@@ -26,6 +28,7 @@ begin
   SGE.Api.HealthCheck.Register;
   SGE.Api.Auth.Register;
   SGE.Api.Cargos.Register;
+  SGE.Api.Usuarios.Register;
 
   ApiServer.Initialize;
   WriteLn(' -> Server is running on localhost:', ApiServer.Port);

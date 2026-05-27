@@ -14,7 +14,7 @@ uses
 
   SGE.Database,
   SGE.Log,
-  SGE.Models.Cargo;
+  SGE.Models.Cargo, SGE.Models.Usuario;
 
 
 procedure InsertTestLogs(conexao : TSQLite3Connection);

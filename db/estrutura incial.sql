@@ -16,8 +16,11 @@ create table usuarios (
     id       integer primary key autoincrement, 
     usuario  text not null,
     senha    text not null,
-    ativo    integer
+    ativo    integer default 1 check(ativo in (1,0)),
+    
+    unique(usuario)    
 );
+
 
 
 /*  

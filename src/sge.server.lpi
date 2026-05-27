@@ -53,6 +53,11 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="SGE.Api.DataBase"/>
       </Unit>
+      <Unit>
+        <Filename Value="units\sge.api.usuarios.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="SGE.Api.Usuarios"/>
+      </Unit>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
