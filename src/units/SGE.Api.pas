@@ -9,6 +9,29 @@ uses
   HTTPRoute, HTTPDefs;
 
 type
+
+  { TJsonRequestValidador }
+  TRequestValidadorEnum = (
+    rvOk,
+    rvJsonMimeTypeRequired,
+    rvJsonEmptyBody
+  );
+
+  TRequestValidadorResult = record
+    Code    : TRequestValidadorEnum;
+    Message : string;
+  end;
+
+  { TRequestValidador }
+  TRequestValidador = class
+  public
+     class function RequiredJson(ARequest: TRequest): TRequestValidadorResult;
+  end;
+
+
+
+
+type
   { TApiApplication }
   TApiApplication = class(THTTPApplication)
   public
@@ -127,6 +150,29 @@ begin
     SendResponse(AResponse, 404)
   else
     SendText(AResponse, 404, AText);
+end;
+
+
+{ TRequestValidador }
+
+class function TRequestValidador.RequiredJson(ARequest: TRequest
+  ): TRequestValidadorResult;
+begin
+  if (ARequest.ContentType <> 'application/json') then
+  begin
+    Result.Code   := rvJsonMimeTypeRequired;
+    Result.Message:= 'Mime type invalid';
+  end else
+  if ARequest.ContentLength = 0 then
+    begin
+      Result.Code   := rvJsonEmptyBody;
+      Result.Message := 'Content cannot be empty';
+    end
+  else
+  begin
+    Result.Code    := rvOk;
+    Result.Message := '';
+  end;
 end;
 
 { TApiApplication }

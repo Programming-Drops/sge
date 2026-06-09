@@ -80,37 +80,34 @@ procedure UpdateCargo(ARequest: TRequest; AResponse: TResponse);
 var
   payload: TJSONData;
   id     : integer;
-  json   : TJSONObject;
   nome   : string;
+  validation : TRequestValidadorResult;
 begin
   WriteLn(' > ', ARequest.Method, ' ', ARequest.URI);
 
-  if (ARequest.ContentType <> 'application/json') then
-  begin
-     SendBadRequest(AResponse);
-     Exit;
+  validation := TRequestValidador.RequiredJson(ARequest);
+  case validation.Code of
+    rvJsonMimeTypeRequired: SendBadRequest(AResponse, validation.Message);
+    rvJsonEmptyBody       : SendBadRequest(AResponse, validation.Message);
   end;
 
-  if ARequest.ContentLength = 0 then
+  if validation.Code = rvOk then
   begin
-    SendBadRequest(AResponse, 'Content cannot be empty');
-    Exit;
+    payload := GetJSON(ARequest.Content);
+    if (TJSONObject(payload).Find('nome') = nil) then
+    begin
+      SendBadRequest(AResponse, 'The "nome" property was not found on payload ');
+      Exit;
+    end;
+
+    id := StrToInt(ARequest.RouteParams['id']);
+    nome := TJSONObject(payload).Get('nome');
+
+    if CargoUpdate(id, nome) then
+      SendOk(AResponse, 'Cargo updated')
+    else
+      SendInternalServerError(AResponse);
   end;
-
-  payload := GetJSON(ARequest.Content);
-  if (TJSONObject(payload).Find('nome') = nil) then
-  begin
-    SendBadRequest(AResponse, 'The "nome" property was not found on payload ');
-    Exit;
-  end;
-
-  id := StrToInt(ARequest.RouteParams['id']);
-  nome := TJSONObject(payload).Get('nome');
-
-  if CargoUpdate(id, nome) then
-    SendOk(AResponse, 'Cargo updated')
-  else
-    SendInternalServerError(AResponse);
 end;
 
 procedure PostCargo(ARequest: TRequest; AResponse: TResponse);
@@ -118,41 +115,38 @@ var
   payload: TJSONData;
   nome, location: string;
   p : PCargo;
+  validation : TRequestValidadorResult;
 begin
   WriteLn(' > ', ARequest.Method, ' ', ARequest.URI);
 
-  if (ARequest.ContentType <> 'application/json') then
-   begin
-     SendBadRequest(AResponse);
-     Exit;
-   end;
-
-  if ARequest.ContentLength = 0 then
-  begin
-    SendBadRequest(AResponse, 'Content cannot be empty');
-    Exit;
+  validation := TRequestValidador.RequiredJson(ARequest);
+  case validation.Code of
+    rvJsonMimeTypeRequired: SendBadRequest(AResponse, validation.Message);
+    rvJsonEmptyBody       : SendBadRequest(AResponse, validation.Message);
   end;
-
-  payload := GetJSON(ARequest.Content);
-  if (TJSONObject(payload).Find('nome') = nil) then
+  if validation.Code = rvOk then
   begin
-    SendBadRequest(AResponse, 'The "name" property was not found on payload ');
-    Exit;
-   end;
-
-  nome := TJSONObject(payload).Get('nome');
-  try
-    p := CargoInsert(nome);
-    if p=nil then
-      SendBadRequest(AResponse, 'Could not create the new "cargo"')
-    else
+    payload := GetJSON(ARequest.Content);
+    if (TJSONObject(payload).Find('nome') = nil) then
     begin
-      location := Format('/cargo/%d', [p^.Id]);
-      SendCreated(AResponse, location, location);
+      SendBadRequest(AResponse, 'The "nome" property was not found on payload ');
+      Exit;
      end;
-   finally
-     Dispose(p);
-   end;
+
+    nome := TJSONObject(payload).Get('nome');
+    try
+      p := CargoInsert(nome);
+      if p=nil then
+        SendBadRequest(AResponse, 'Could not create the new "cargo"')
+      else
+      begin
+        location := Format('/cargo/%d', [p^.Id]);
+        SendCreated(AResponse, location, location);
+       end;
+     finally
+       Dispose(p);
+     end;
+  end;
 end;
 
 procedure GetCargo(ARequest: TRequest; AResponse: TResponse);

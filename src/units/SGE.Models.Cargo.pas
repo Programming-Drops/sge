@@ -77,7 +77,7 @@ function CargoLoad: TCargoArray;
 const
   SQL_SELECT = 'select id, nome from cargos order by id';
 var
-  i: integer;
+  i : integer;
   query: TSQLQuery;
 begin
   SetLength(Result, 0);

@@ -124,6 +124,7 @@ begin
   result := TSQLQuery.Create(cnn);
   result.SQLConnection := cnn;
   result.SQL.Add(ASql);
+  result.PacketRecords:= -1;
 
   if ATransaction <> nil then
     Result.Transaction := ATransaction;

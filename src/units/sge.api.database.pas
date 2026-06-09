@@ -29,7 +29,6 @@ begin
   if FileExists(SERVER_DB) then
   begin
     conexao := GetConnection(SERVER_DB);
-    //SetDefaultConnection(conexao);
   end
   else begin
     conexao := CrateNewDataBase(SERVER_DB);
