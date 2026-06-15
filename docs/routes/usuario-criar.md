@@ -4,6 +4,10 @@ Cria um usuário no banco de dados.
 
 [Voltar ao índice da API](../api.md)
 
+## Autenticação
+
+Esta rota é pública.
+
 ## Cabeçalhos
 
 ```http
@@ -56,6 +60,8 @@ curl -X POST http://localhost:8085/usuario \
 
 ## Limitações
 
-- A senha é armazenada sem hash ou criptografia.
 - Não existem rotas para consultar, atualizar ou excluir usuários.
 
+## Segurança
+
+A senha é armazenada como hash Argon2id no campo `usuarios.senha`.

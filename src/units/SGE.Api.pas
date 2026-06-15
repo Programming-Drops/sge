@@ -32,10 +32,13 @@ type
 
 
 type
+  TBearerTokenValidator = function(ARequest: TRequest; out ASubject: string): boolean;
+
   { TApiApplication }
   TApiApplication = class(THTTPApplication)
   public
-    function RegisterPublicRoute(const APattern : String; AMethod : TRouteMethod; ACallBack: TRouteCallBack): THTTPRoute;
+    function PublicRoute(const APattern : String; AMethod : TRouteMethod; ACallBack: TRouteCallBack): THTTPRoute;
+    function ProtectedRoute(const APattern : String; AMethod : TRouteMethod; ACallBack: TRouteCallBack): THTTPRoute;
   end;
 
   procedure SendText(AResponse: TResponse; ACode: integer; const AText: string);
@@ -52,8 +55,18 @@ type
 
 var
   ApiServer : TApiApplication;
+  BearerTokenValidator: TBearerTokenValidator;
 
 implementation
+
+uses
+  SysUtils;
+
+type
+  PProtectedRouteData = ^TProtectedRouteData;
+  TProtectedRouteData = record
+    CallBack: TRouteCallBack;
+  end;
 
 procedure SendText(AResponse: TResponse; ACode: integer; const AText: string);
 begin
@@ -152,6 +165,30 @@ begin
     SendText(AResponse, 404, AText);
 end;
 
+procedure ProtectedRouteCallback(AData: Pointer; ARequest: TRequest;
+  AResponse: TResponse);
+var
+  data: PProtectedRouteData;
+  subject: string;
+begin
+  subject := '';
+  if not Assigned(BearerTokenValidator) then
+  begin
+    WriteLn('ERR: bearer token validator was not configured');
+    SendUnauthorized(AResponse);
+    Exit;
+  end;
+
+  if not BearerTokenValidator(ARequest, subject) then
+  begin
+    SendUnauthorized(AResponse);
+    Exit;
+  end;
+
+  data := PProtectedRouteData(AData);
+  if Assigned(data) and Assigned(data^.CallBack) then
+    data^.CallBack(ARequest, AResponse);
+end;
 
 { TRequestValidador }
 
@@ -177,12 +214,24 @@ end;
 
 { TApiApplication }
 
-function TApiApplication.RegisterPublicRoute(const APattern: String;
+function TApiApplication.PublicRoute(const APattern: String;
   AMethod: TRouteMethod; ACallBack: TRouteCallBack): THTTPRoute;
 begin
   Result := HTTPRouter.RegisterRoute(APattern, AMethod, ACallBack);
 end;
 
+function TApiApplication.ProtectedRoute(const APattern: String;
+  AMethod: TRouteMethod; ACallBack: TRouteCallBack): THTTPRoute;
+var
+  data: PProtectedRouteData;
+begin
+  New(data);
+  data^.CallBack := ACallBack;
+  Result := HTTPRouter.RegisterRoute(APattern, data, AMethod, @ProtectedRouteCallback);
+end;
+
+initialization
+  BearerTokenValidator := nil;
 
 end.
 

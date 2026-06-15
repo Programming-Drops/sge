@@ -4,12 +4,21 @@ Lista todos os cargos, ordenados pelo ID em ordem crescente.
 
 [Voltar ao índice da API](../api.md)
 
+## Autenticação
+
+Esta rota é protegida. Envie um token JWT válido:
+
+```http
+Authorization: Bearer <access_token>
+```
+
 ## Requisição
 
-Esta rota não recebe parâmetros, corpo ou cabeçalhos obrigatórios.
+Esta rota não recebe parâmetros ou corpo.
 
 ```bash
-curl http://localhost:8085/cargos
+curl http://localhost:8085/cargos \
+  -H "Authorization: Bearer <access_token>"
 ```
 
 ## Resposta de sucesso
@@ -37,4 +46,3 @@ Quando não existem cargos, a resposta é um array vazio:
 ```json
 []
 ```
-

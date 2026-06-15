@@ -4,6 +4,14 @@ Consulta um cargo pelo ID.
 
 [Voltar ao índice da API](../api.md)
 
+## Autenticação
+
+Esta rota é protegida. Envie um token JWT válido:
+
+```http
+Authorization: Bearer <access_token>
+```
+
 ## Parâmetros da rota
 
 | Parâmetro | Tipo | Descrição |
@@ -33,6 +41,6 @@ Content-Type: application/json
 ## Exemplo
 
 ```bash
-curl http://localhost:8085/cargo/1
+curl http://localhost:8085/cargo/1 \
+  -H "Authorization: Bearer <access_token>"
 ```
-

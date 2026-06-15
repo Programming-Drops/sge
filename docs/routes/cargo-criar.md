@@ -4,9 +4,18 @@ Cria um cargo.
 
 [Voltar ao índice da API](../api.md)
 
+## Autenticação
+
+Esta rota é protegida. Envie um token JWT válido:
+
+```http
+Authorization: Bearer <access_token>
+```
+
 ## Cabeçalhos
 
 ```http
+Authorization: Bearer <access_token>
 Content-Type: application/json
 ```
 
@@ -45,7 +54,7 @@ Content-Type: text/plain
 
 ```bash
 curl -X POST http://localhost:8085/cargo \
+  -H "Authorization: Bearer <access_token>" \
   -H "Content-Type: application/json" \
   -d '{"nome":"Caixa"}'
 ```
-

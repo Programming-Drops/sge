@@ -6,6 +6,14 @@ Exclui um cargo.
 
 > A barra final faz parte do padrão registrado: `/cargo/:id/`.
 
+## Autenticação
+
+Esta rota é protegida. Envie um token JWT válido:
+
+```http
+Authorization: Bearer <access_token>
+```
+
 ## Parâmetros da rota
 
 | Parâmetro | Tipo | Descrição |
@@ -30,11 +38,11 @@ O corpo da resposta é vazio.
 ## Exemplo
 
 ```bash
-curl -X DELETE http://localhost:8085/cargo/3/
+curl -X DELETE http://localhost:8085/cargo/3/ \
+  -H "Authorization: Bearer <access_token>"
 ```
 
 ## Limitação
 
 A exclusão de um ID inexistente pode retornar sucesso se o comando SQL for
 executado sem erro.
-

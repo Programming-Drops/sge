@@ -7,6 +7,14 @@ Atualiza o nome de um cargo.
 > A rota usa `POST`, e não `PUT` ou `PATCH`. A barra final faz parte do padrão
 > registrado: `/cargo/:id/`.
 
+## Autenticação
+
+Esta rota é protegida. Envie um token JWT válido:
+
+```http
+Authorization: Bearer <access_token>
+```
+
 ## Parâmetros da rota
 
 | Parâmetro | Tipo | Descrição |
@@ -16,6 +24,7 @@ Atualiza o nome de um cargo.
 ## Cabeçalhos
 
 ```http
+Authorization: Bearer <access_token>
 Content-Type: application/json
 ```
 
@@ -53,6 +62,7 @@ Cargo updated
 
 ```bash
 curl -X POST http://localhost:8085/cargo/1/ \
+  -H "Authorization: Bearer <access_token>" \
   -H "Content-Type: application/json" \
   -d '{"nome":"Supervisor"}'
 ```
@@ -61,4 +71,3 @@ curl -X POST http://localhost:8085/cargo/1/ \
 
 O código atual considera a operação bem-sucedida mesmo quando nenhum registro
 corresponde ao ID informado, desde que o comando SQL seja executado sem erro.
-

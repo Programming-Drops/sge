@@ -123,6 +123,7 @@ begin
   cnn := GetConnection;
   result := TSQLQuery.Create(cnn);
   result.SQLConnection := cnn;
+  result.Transaction := cnn.Transaction;
   result.SQL.Add(ASql);
   result.PacketRecords:= -1;
 
@@ -150,8 +151,17 @@ begin
 
   commandList := nil;
   commandList := ParseScript( AScriptFileName );
-  transaction := TSQLTransaction.Create( AConnection );
-  AConnection.Transaction := transaction;
+  if AConnection.Transaction = nil then
+  begin
+    transaction := TSQLTransaction.Create(AConnection);
+    AConnection.Transaction := transaction;
+  end
+  else
+    transaction := AConnection.Transaction;
+
+  if transaction.Active then
+    transaction.Commit;
+
   transaction.StartTransaction;
   try
     for i:= 0 to commandList.Count - 1 do
@@ -177,6 +187,7 @@ var
   scriptFile : TextFile;
 begin
   Result := TStringList.Create;
+  command := '';
 
   AssignFile(scriptFile, AScriptFileName);
   Reset(scriptFile);

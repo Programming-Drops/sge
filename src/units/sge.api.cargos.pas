@@ -186,11 +186,11 @@ end;
 
 procedure Register;
 begin
-  ApiServer.RegisterPublicRoute('/cargo',       rmPost,   @PostCargo);
-  ApiServer.RegisterPublicRoute('/cargo/:id',   rmGet,    @GetCargo);
-  ApiServer.RegisterPublicRoute('/cargo/:id/',  rmPost,   @UpdateCargo);
-  ApiServer.RegisterPublicRoute('/cargo/:id/',  rmDelete, @DeleteCargo);
-  ApiServer.RegisterPublicRoute('/cargos',      rmGet,    @GetCargoList);
+  ApiServer.ProtectedRoute('/cargo',       rmPost,   @PostCargo);
+  ApiServer.ProtectedRoute('/cargo/:id',   rmGet,    @GetCargo);
+  ApiServer.ProtectedRoute('/cargo/:id/',  rmPost,   @UpdateCargo);
+  ApiServer.ProtectedRoute('/cargo/:id/',  rmDelete, @DeleteCargo);
+  ApiServer.ProtectedRoute('/cargos',      rmGet,    @GetCargoList);
 
   WriteLn('    - [ok] SGE.Api.Cargos' );
 end;

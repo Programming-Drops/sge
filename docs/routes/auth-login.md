@@ -6,8 +6,11 @@ Valida credenciais e retorna um token JWT.
 
 ## Comportamento atual
 
-A autenticação é aceita quando os valores de `usr` e `pwd` são iguais. As
-credenciais ainda não são consultadas no banco de dados.
+A autenticação consulta a tabela `usuarios`. O login é aceito somente quando o
+usuário existe, está ativo e a senha confere.
+
+Senhas novas são armazenadas com Argon2id. Usuários antigos com senha em texto
+puro são migrados automaticamente para Argon2id após o primeiro login válido.
 
 ## Cabeçalhos
 
@@ -33,14 +36,20 @@ Content-Type: application/json
 
 ```http
 HTTP/1.1 200 OK
-Content-Type: text/plain
+Content-Type: application/json
+```
 
-<token-jwt>
+```json
+{
+  "access_token": "<token-jwt>",
+  "token_type": "Bearer",
+  "expires_in": 3600
+}
 ```
 
 O token:
 
-- usa o algoritmo configurado pela biblioteca LazJWT;
+- usa o algoritmo `HS256`;
 - possui emissor `sge.server`;
 - possui audiência `sge server api`;
 - usa o usuário como subject;
@@ -54,7 +63,7 @@ O token:
 | `400 Bad Request` | Corpo vazio | `Content cannot be empty` |
 | `400 Bad Request` | Campo `usr` ausente | `The "nome" property was not found on payload ` |
 | `400 Bad Request` | Campo `pwd` ausente | `The "pwd" property was not found on payload ` |
-| `401 Unauthorized` | `usr` e `pwd` possuem valores diferentes | `Unauthorized` |
+| `401 Unauthorized` | Usuário inexistente, inativo ou senha inválida | `Unauthorized` |
 
 > A mensagem referente à ausência de `usr` menciona `"nome"` por um erro de
 > texto na implementação atual.
@@ -67,9 +76,14 @@ curl -X POST http://localhost:8085/auth/login \
   -d '{"usr":"admin","pwd":"admin"}'
 ```
 
-## Limitações
+## Uso do token
 
-- O token emitido não é validado nas demais rotas.
-- O segredo JWT está fixo no código-fonte.
-- O login não consulta os usuários cadastrados.
+Envie o token retornado nas rotas protegidas:
 
+```http
+Authorization: Bearer <access_token>
+```
+
+## Limitação
+
+- O segredo JWT ainda está fixo no código-fonte para uso didático/local.
