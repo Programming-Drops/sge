@@ -30,7 +30,7 @@ end;
 
 procedure Register;
 begin
-  ApiServer.RegisterPublicRoute('/health', rmGet, @GetHealth);
+  ApiServer.PublicRoute('/health', rmGet, @GetHealth);
 
   WriteLn('    - [ok] SGE.Api.HealthCheck' );
 end;

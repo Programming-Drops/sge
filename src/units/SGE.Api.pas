@@ -223,11 +223,11 @@ end;
 function TApiApplication.ProtectedRoute(const APattern: String;
   AMethod: TRouteMethod; ACallBack: TRouteCallBack): THTTPRoute;
 var
-  data: PProtectedRouteData;
+  Data: PProtectedRouteData;
 begin
   New(data);
-  data^.CallBack := ACallBack;
-  Result := HTTPRouter.RegisterRoute(APattern, data, AMethod, @ProtectedRouteCallback);
+  Data^.CallBack := ACallBack;
+  Result := HTTPRouter.RegisterRoute(APattern, Data, AMethod, @ProtectedRouteCallback);
 end;
 
 initialization

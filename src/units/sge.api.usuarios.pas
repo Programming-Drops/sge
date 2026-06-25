@@ -88,7 +88,7 @@ end;
 
 procedure Register;
 begin
-  ApiServer.RegisterPublicRoute('/usuario', rmPost, @PostUsuario);
+  ApiServer.PublicRoute('/usuario', rmPost, @PostUsuario);
 
   WriteLn('    - [ok] SGE.Api.Usuarios' );
 end;
