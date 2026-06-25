@@ -132,6 +132,65 @@ bin\tests\test_runner.exe
 
 E em seguida executa os testes.
 
+## Testando a API com Python
+
+O projeto tambem possui uma suite simples de testes HTTP em Python para validar
+a API local em `http://localhost:8085`. Ela fica em:
+
+```text
+tools\client\test.py
+```
+
+Essa suite usa `requests` para chamar a API e `rich` para exibir um menu e uma
+tabela de resultados no terminal. Ela cobre:
+
+- rotas publicas: `GET /health`, `POST /auth/login` e `POST /usuario`
+- rotas protegidas de cargos: `GET /cargos`, `POST /cargo`,
+  `GET /cargo/:id`, `POST /cargo/:id/` e `DELETE /cargo/:id/`
+
+Antes de rodar, instale as dependencias:
+
+```powershell
+python -m pip install -r tools\client\requirements.txt
+```
+
+Com o servidor da API em execucao, abra o menu interativo:
+
+```powershell
+python tools\client\test.py
+```
+
+No menu voce pode rodar todos os testes, apenas as rotas publicas, apenas as
+rotas de cargos ou escolher uma rota especifica.
+
+Para executar tudo sem abrir o menu:
+
+```powershell
+python tools\client\test.py --all
+```
+
+Se a API estiver em outra URL, informe com `--base-url`:
+
+```powershell
+python tools\client\test.py --base-url http://localhost:8085
+```
+
+Tambem e possivel configurar a URL por variavel de ambiente:
+
+```powershell
+$env:SGE_API_URL = "http://localhost:8085"
+python tools\client\test.py --all
+```
+
+Por padrao, os testes criam usuarios e cargos temporarios para validar os
+fluxos. Para testar login com um usuario existente, configure:
+
+```powershell
+$env:SGE_TEST_USER = "admin"
+$env:SGE_TEST_PASSWORD = "admin"
+python tools\client\test.py --all
+```
+
 ## Arquivos Ignorados
 
 Arquivos gerados por compilação, bancos locais e diretórios de backup não devem
